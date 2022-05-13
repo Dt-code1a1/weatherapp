@@ -41,9 +41,7 @@ const onEnterSubmit = event =>{
         fadeInOut()
         let qurey = viewElems.searchInput.value
         getWeatherByCity(qurey).then(data => {
-            console.log(data)
-            switchView()
-            fadeInOut()
+            displayWeatherData(data)
         })
     }
 }
@@ -52,12 +50,29 @@ const onClickSubmit = () =>{
     fadeInOut()
     let qurey = viewElems.searchInput.value
         getWeatherByCity(qurey).then(data => {
-            console.log(data)
-            switchView()
-            fadeInOut()
+            displayWeatherData(data)
         })
     
 }
+
+const displayWeatherData = data =>{
+    switchView()
+    fadeInOut()
+    console.log(data)
+    const weather = data.consolidated_weather[0]
+    viewElems.weatherCity.innerText = data.title
+    viewElems.weatherIcon.src = `https://www.metaweather.com/static/img/weather/${weather.weather_state_abbr}.svg`
+    viewElems.weatherIcon.alt = weather.weather_state_name
+
+    const currentTemp = weather.the_temp.toFixed(1)
+    const maxTemp = weather.max_temp.toFixed(1)
+    const minTemp = weather.min_temp.toFixed(1)
+
+    viewElems.weatherCurrentTemp.innerText = `Current temperature: ${currentTemp}°C`
+    viewElems.weatherMinTemp.innerText = `Max temperature: ${maxTemp}°C`
+    viewElems.weatherMaxTemp.innerText = `Min temperature: ${minTemp}°C`
+}
+
 
  const fadeInOut = () => {
     if (viewElems.mainContainer.style.opacity === '1' || viewElems.mainContainer.style.opacity === '') {
