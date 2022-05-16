@@ -30,9 +30,11 @@ handleSubmit = () => {
     getWeatherByCity(query).then(data => {
       this.displayWeatherData(data)
       this.viewElems.searchInput.style.borderColor = 'black'
+      this.viewElems.cityalert.style.display = 'none'
     }).catch(() => {
       this.fadeInOut()
       this.viewElems.searchInput.style.borderColor = 'red'
+      this.viewElems.cityalert.style.display = 'block'
     })
   }
 }
@@ -51,13 +53,13 @@ switchView = () => {
     this.viewElems.weatherForecastView.style.display = 'block';
   } else {
     this.viewElems.weatherForecastView.style.display = 'none';
-   this.viewElems.weatherSearchView.style.display = 'flex';
+    this.viewElems.weatherSearchView.style.display = 'flex';
+    this.viewElems.searchInput.value = ""
   }
 }
 
 returnToSearch = () => {
   this.fadeInOut();
-
    setTimeout(() => {
      this.switchView();
      this.fadeInOut();

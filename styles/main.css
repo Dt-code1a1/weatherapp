@@ -73,3 +73,7 @@ body {
   .weather__icon{
       width: 12vw;
   }
+  #cityalert{
+    display: none;
+    color: red;
+  }
